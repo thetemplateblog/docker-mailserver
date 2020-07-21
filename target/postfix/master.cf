@@ -10,10 +10,7 @@
 #               (yes)   (yes)   (no)   (never) (100)
 # ==========================================================================
 
-smtp       inet n       -       n       -       1       postscreen        
-smtpd      pass -       -       n       -       -       smtpd                                                                                                                                                
-tlsproxy   unix -       -       n       -       0       tlsproxy                                                                                                                                             
-dnsblog    unix -       -       n       -       0       dnsblog                 
+smtp       inet  n       -       n       -       -       smtpd                
 submission inet n       -       n       -       -       smtpd
   -o syslog_name=postfix/submission
   -o smtpd_tls_security_level=encrypt
@@ -75,7 +72,7 @@ ifmail    unix  -       n       n       -       -       pipe
   flags=F user=ftn argv=/usr/lib/ifmail/ifmail -r $nexthop ($recipient)
 bsmtp     unix  -       n       n       -       -       pipe
   flags=Fq. user=bsmtp argv=/usr/lib/bsmtp/bsmtp -t$nexthop -f$sender $recipient
-scalemail-backend unix	-	n	n	-	2	pipe
+scalemail-backend unix  - n n - 2 pipe
   flags=R user=scalemail argv=/usr/lib/scalemail/bin/scalemail-store ${nexthop} ${user} ${extension}
 mailman   unix  -       n       n       -       -       pipe
   flags=FR user=list argv=/usr/lib/mailman/bin/postfix-to-mailman.py
